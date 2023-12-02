@@ -4,7 +4,6 @@ import numpy as np
 import joblib
 import os
 import tempfile
-import xgboost as xgb
 
 app = Flask(__name__)
 
