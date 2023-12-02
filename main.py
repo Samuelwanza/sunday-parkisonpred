@@ -74,6 +74,7 @@ def predict():
         return jsonify({'prediction': int(prediction), 'result_message': result_message})
 
     except Exception as e:
+        print(str(e))
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
