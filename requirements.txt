@@ -39,7 +39,6 @@ cleo==2.0.1
 click==8.1.7
 clikit==0.6.2
 colorama==0.4.4
-command-not-found==0.3
 constantly==15.1.0
 contourpy==1.1.1
 crashtest==0.4.1
