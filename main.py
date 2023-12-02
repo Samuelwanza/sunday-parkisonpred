@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 def extract_features(audio_path):
     y, sr = librosa.load(audio_path, sr=None, res_type='kaiser_fast')
+    print("Audio shape:", y.shape)
     features = [
         librosa.feature.zero_crossing_rate(y),
         librosa.feature.spectral_centroid(y=y, sr=sr),
