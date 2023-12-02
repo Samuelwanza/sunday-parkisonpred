@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import librosa
+
 import numpy as np
 import joblib
 import os
@@ -8,22 +9,29 @@ import tempfile
 app = Flask(__name__)
 
 def extract_features(audio_path):
-    y, sr = librosa.load(audio_path, sr=None, res_type='kaiser_fast')
-    print("Audio shape:", y.shape)
-    features = [
-        librosa.feature.zero_crossing_rate(y),
-        librosa.feature.spectral_centroid(y=y, sr=sr),
-        librosa.feature.spectral_bandwidth(y=y, sr=sr),
-        librosa.feature.spectral_rolloff(y=y, sr=sr),
-        librosa.feature.mfcc(y=y, sr=sr),
-    ]
-    flat_features = np.concatenate([feature.mean(axis=1) for feature in features])
-    selected_features = flat_features[:18]
-    return selected_features
+    try:
+        y, sr = librosa.load(audio_path, sr=None, res_type='kaiser_fast')
+        print("Audio shape:", y.shape)
+        features = [
+            librosa.feature.zero_crossing_rate(y),
+            librosa.feature.spectral_centroid(y=y, sr=sr),
+            librosa.feature.spectral_bandwidth(y=y, sr=sr),
+            librosa.feature.spectral_rolloff(y=y, sr=sr),
+            librosa.feature.mfcc(y=y, sr=sr),
+        ]
+        flat_features = np.concatenate([feature.mean(axis=1) for feature in features])
+        selected_features = flat_features[:18]
+        return selected_features
+    except Exception as e:
+        print(f"Error loading audio file: {str(e)}")
+        return None
+
 
 def predict_parkinsons(features):
     loaded_model = joblib.load('xgboost_model.joblib')
+    
     features = features.reshape((1, -1))
+    print("features",features)
 
     # Set use_label_encoder to False
     loaded_model._Booster.set_param('use_label_encoder', False)
