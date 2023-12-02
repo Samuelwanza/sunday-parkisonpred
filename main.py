@@ -54,7 +54,9 @@ def predict():
         audio_file.save(temp_audio_path)
 
         # Extract features from the temporary audio file
+        print(temp_audio_path)
         extracted_features = extract_features(temp_audio_path)
+        print(extracted_features)
 
         # Predict Parkinson's using the extracted features
         prediction = predict_parkinsons(extracted_features)
@@ -78,4 +80,4 @@ def predict():
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000)
