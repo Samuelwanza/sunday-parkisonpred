@@ -12,7 +12,6 @@ annotated-types==0.5.0
 anyio==3.7.1
 apeye==1.4.1
 apeye-core==1.1.4
-apturl==0.5.2
 asgiref==3.6.0
 asttokens==2.2.1
 astunparse==1.6.3
